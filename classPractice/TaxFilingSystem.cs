@@ -25,8 +25,12 @@ public class TaxFilingSystem
     }
 
     public void DisplayTaxRecords(){
+        Console.WriteLine("\n=======  Tax Records  =======");
+        Console.WriteLine("Total tax collect is "+ _totalTaxCollected + ".");
         foreach(var taxFiler in _taxFilers){
             Console.WriteLine($"{taxFiler.Name} paid ${taxFiler.TaxPaid}.");
         }
+        Console.WriteLine("=======  Tax Records  =======\n");
+        
     }
 }
