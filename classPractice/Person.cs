@@ -19,15 +19,11 @@ public abstract class Person
 
     // Every future type person should know where (The factory here is just a middle layer (eg. SelfEmployee => SelfEmployeeCalculatorFactory => SelfEmployeeCalculator) to buy their needed tax calculator. because they know who their type and every type's calculator has been created.
     //  Here assume you must get the factory
-    public abstract ITaxCalculatorFactory GetTaxCalculatorFactory();
+    public abstract ITaxCalculator GetTaxCalculator();
 
     
     public void FileTax(){
-        //Here you consume the assumed factory 
-        ITaxCalculatorFactory fatory = GetTaxCalculatorFactory();
-        //Here you consume the assumed calculator
-        ITaxCalculator calculator = fatory.CreateTaxCalculator();
-        //Here you calculate the tax with future any type of Person
+        ITaxCalculator calculator = GetTaxCalculator();
         TaxPaid = calculator.CalculateTax(this);
         
     }
@@ -40,8 +36,9 @@ public class Employee : Person
     public Employee(string name, double annualIncome)
     : base(name, annualIncome) { }
 
-    public override ITaxCalculatorFactory GetTaxCalculatorFactory(){
-        return new EmployeeCalculatorFactory();
+    public override ITaxCalculator GetTaxCalculator()
+    {
+        return new EmployeeTaxCalculator();
     }
 
 }
@@ -56,9 +53,9 @@ public class SelfEmployee : Person
         Expense = expense;
     }
 
-    public override ITaxCalculatorFactory GetTaxCalculatorFactory()
+    public override ITaxCalculator GetTaxCalculator()
     {
-        return new SelfEmployeeCalculatorFactory();
+        return new SelfEmployeeTaxCalculator();
     }
 
 }
