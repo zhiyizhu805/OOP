@@ -1,4 +1,4 @@
-//person class containing infos:Name/annualIncom/Taxpaid
+using System.Reflection.Metadata.Ecma335;
 
 public abstract class Person
 {
@@ -8,16 +8,29 @@ public abstract class Person
 
     public Person(string name, double annualIncome)
     {
-         if (annualIncome < 0){
+        if (annualIncome < 0)
+        {
             throw new Exception("Income cannot be negative");
-         }
+        }
         Name = name;
         AnnualIncome = annualIncome;
         TaxPaid = 0;
     }
 
-    // In the current design, the Person class has a method FileTax that triggers the tax calculation for that person. This is just a way for the Person class to interact with the TaxCalculator class, not to actually perform the calculation itself.
-    public abstract void FileTax(TaxCalculator taxCalculator);
+    // Every future type person should know where (The factory here is just a middle layer (eg. SelfEmployee => SelfEmployeeCalculatorFactory => SelfEmployeeCalculator) to buy their needed tax calculator. because they know who their type and every type's calculator has been created.
+    //  Here assume you must get the factory
+    public abstract ITaxCalculatorFactory GetTaxCalculatorFactory();
+
+    
+    public void FileTax(){
+        //Here you consume the assumed factory 
+        ITaxCalculatorFactory fatory = GetTaxCalculatorFactory();
+        //Here you consume the assumed calculator
+        ITaxCalculator calculator = fatory.CreateTaxCalculator();
+        //Here you calculate the tax with future any type of Person
+        TaxPaid = calculator.CalculateTax(this);
+        
+    }
 }
 
 
@@ -27,14 +40,13 @@ public class Employee : Person
     public Employee(string name, double annualIncome)
     : base(name, annualIncome) { }
 
-    public override void FileTax(TaxCalculator taxCalculator)
-    {
-    TaxPaid = taxCalculator.CalculateTax(this);
+    public override ITaxCalculatorFactory GetTaxCalculatorFactory(){
+        return new EmployeeCalculatorFactory();
     }
 
 }
 
-public class SelfEmployee :  Person
+public class SelfEmployee : Person
 {
     public double Expense { get; set; }
 
@@ -43,8 +55,10 @@ public class SelfEmployee :  Person
     {
         Expense = expense;
     }
-    public override void FileTax(TaxCalculator taxCalculator)
+
+    public override ITaxCalculatorFactory GetTaxCalculatorFactory()
     {
-        TaxPaid = taxCalculator.CalculateTax(this);
+        return new SelfEmployeeCalculatorFactory();
     }
+
 }

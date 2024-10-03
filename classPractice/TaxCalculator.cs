@@ -1,13 +1,6 @@
-//person class containing infos:Name/annualIncom/Taxpaid
-
-public abstract class TaxCalculator
+public class EmployeeTaxCalculator : ITaxCalculator
 {
-    public abstract double CalculateTax(Person person);
-}
-
-public class EmployeeTaxCalculator : TaxCalculator
-{
-    public override double CalculateTax(Person person)
+    public double CalculateTax(Person person)
     {
         if (person is Employee employee)
         {
@@ -36,9 +29,9 @@ public class EmployeeTaxCalculator : TaxCalculator
     }
 }
 
-public class SelfEmployeeTaxCalculator : TaxCalculator
+public class SelfEmployeeTaxCalculator : ITaxCalculator
 {
-    public override double CalculateTax(Person person)
+    public double CalculateTax(Person person)
     {
         //Down casting to Employee class
         if (person is SelfEmployee selfEmployee)

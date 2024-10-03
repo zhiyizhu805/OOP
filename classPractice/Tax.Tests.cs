@@ -90,8 +90,8 @@ namespace classPractice
             Person bob = new Employee("Bob", 30000);
 
             // Act
-            taxFilingSystem.FileForPerson(alice, employeeTaxCalculator);
-            taxFilingSystem.FileForPerson(bob, employeeTaxCalculator);
+            taxFilingSystem.FileForPerson(alice);
+            taxFilingSystem.FileForPerson(bob);
 
             // Assert
             // Alice's tax: 10% of 10,000 = 1,000
@@ -108,8 +108,8 @@ namespace classPractice
             Person bob = new Employee("Bob", 45000);
 
             // Act
-            taxFilingSystem.FileForPerson(alice, employeeTaxCalculator);
-            taxFilingSystem.FileForPerson(bob, employeeTaxCalculator);
+            taxFilingSystem.FileForPerson(alice);
+            taxFilingSystem.FileForPerson(bob);
 
             // Assert
             Assert.AreEqual(1200, alice.TaxPaid);  // Alice should have paid 10% of 12,000 = 1,200
@@ -123,7 +123,7 @@ namespace classPractice
             Person dave = new SelfEmployee("Dave", 60000, 10000);  // $10,000 business expenses
 
             // Act
-            taxFilingSystem.FileForPerson(dave, selfEmployedTaxCalculator);
+            taxFilingSystem.FileForPerson(dave);
 
             // Assert
             Assert.AreEqual(10000, dave.TaxPaid);  // Dave should pay $10,000 in tax after expenses

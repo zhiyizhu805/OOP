@@ -1,6 +1,4 @@
-﻿//person class containing infos:Name/annualIncom/Taxpaid
-
-try
+﻿try
 {
 
     TaxFilingSystem taxFilingSystem = new TaxFilingSystem();
@@ -14,10 +12,10 @@ try
     SelfEmployee user4 = new SelfEmployee("DiDi", 10000,5000);
 
 
-    taxFilingSystem.FileForPerson(user1, employeeTaxCalculator);
-    taxFilingSystem.FileForPerson(user2, employeeTaxCalculator);
-    taxFilingSystem.FileForPerson(user3, selfEmployeeTaxCalculator);
-    taxFilingSystem.FileForPerson(user4, selfEmployeeTaxCalculator);
+    taxFilingSystem.FileForPerson(user1);
+    taxFilingSystem.FileForPerson(user2);
+    taxFilingSystem.FileForPerson(user3);
+    taxFilingSystem.FileForPerson(user4);
 
     Console.WriteLine("Total tax collect is "+ taxFilingSystem.GetTotalTaxCollected() + ".");
     

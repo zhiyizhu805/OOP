@@ -1,15 +1,12 @@
-//person class containing infos:Name/annualIncom/Taxpaid
-
 public class TaxFilingSystem
 {
     private List<Person> _taxFilers = new List<Person>();
     private double _totalTaxCollected;
 
     //File tax for a person
-    public void FileForPerson(Person person, TaxCalculator taxCalculator){
+    public void FileForPerson(Person person){
     // calculate and file fax for the person
-    // taxCalculator.CalculateTax(person);
-    person.FileTax(taxCalculator);
+    person.FileTax();
     // store the taxfile into list
     _taxFilers.Add(person);
     // increase the total amount of tax collected;
