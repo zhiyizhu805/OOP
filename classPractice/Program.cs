@@ -4,19 +4,20 @@ try
 {
 
     TaxFilingSystem taxFilingSystem = new TaxFilingSystem();
-    TaxCalculator taxCalculator = new TaxCalculator();
+    EmployeeTaxCalculator employeeTaxCalculator= new EmployeeTaxCalculator();
+    SelfEmployeeTaxCalculator selfEmployeeTaxCalculator= new SelfEmployeeTaxCalculator();
 
     //create users
-    Person user1 = new Person("James", 50000);
-    Person user2 = new Person("Christine", 60000);
-    Person user3 = new Person("Paul", 80000);
-    Person user4 = new Person("DiDi", 10000);
+    Employee user1 = new Employee("James", 50000);
+    Employee user2 = new Employee("Christine", 60000);
+    SelfEmployee user3 = new SelfEmployee("Paul", 80000, 30000);
+    SelfEmployee user4 = new SelfEmployee("DiDi", 10000,5000);
 
 
-    taxFilingSystem.FileForPerson(user1, taxCalculator);
-    taxFilingSystem.FileForPerson(user2, taxCalculator);
-    taxFilingSystem.FileForPerson(user3, taxCalculator);
-    taxFilingSystem.FileForPerson(user4, taxCalculator);
+    taxFilingSystem.FileForPerson(user1, employeeTaxCalculator);
+    taxFilingSystem.FileForPerson(user2, employeeTaxCalculator);
+    taxFilingSystem.FileForPerson(user3, selfEmployeeTaxCalculator);
+    taxFilingSystem.FileForPerson(user4, selfEmployeeTaxCalculator);
 
     Console.WriteLine("Total tax collect is "+ taxFilingSystem.GetTotalTaxCollected() + ".");
     
